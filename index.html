@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Never Relapse - Recovery Support</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="screen active">
+            <div class="loading-content">
+                <div class="logo">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7v10c0 5.55 3.84 10 9 9 5.16 1 9-3.45 9-9V7l-10-5z"/>
+                        <path d="M8 11l2 2 4-4"/>
+                    </svg>
+                </div>
+                <h1>Never Relapse</h1>
+                <p>Your recovery journey starts here</p>
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+
+        <!-- Login Screen -->
+        <div id="login-screen" class="screen">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div class="logo-section">
+                        <div class="logo">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 10 9 9 5.16 1 9-3.45 9-9V7l-10-5z"/>
+                                <path d="M8 11l2 2 4-4"/>
+                            </svg>
+                        </div>
+                        <h1>Never Relapse</h1>
+                        <p>Welcome back to your recovery journey</p>
+                    </div>
+
+                    <form id="login-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="login-username">Username</label>
+                            <input type="text" id="login-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <div class="form-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="remember-me">
+                                <span>Remember me</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                        <div class="auth-links">
+                            <a href="#" id="show-register">Create new account</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Screen -->
+        <div id="register-screen" class="screen">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div class="logo-section">
+                        <div class="logo">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2L2 7v10c0 5.55 3.84 10 9 9 5.16 1 9-3.45 9-9V7l-10-5z"/>
+                                <path d="M8 11l2 2 4-4"/>
+                            </svg>
+                        </div>
+                        <h1>Join Never Relapse</h1>
+                        <p>Start your recovery journey today</p>
+                    </div>
+
+                    <form id="register-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="register-username">Username</label>
+                            <input type="text" id="register-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email">Email</label>
+                            <input type="email" id="register-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" id="register-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-confirm-password">Confirm Password</label>
+                            <input type="password" id="register-confirm-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Account</button>
+                        <div class="auth-links">
+                            <a href="#" id="show-login">Already have an account?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App -->
+        <div id="main-app" class="screen">
+            <!-- Navigation -->
+            <nav class="nav-bar">
+                <div class="nav-brand">
+                    <div class="logo">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2L2 7v10c0 5.55 3.84 10 9 9 5.16 1 9-3.45 9-9V7l-10-5z"/>
+                            <path d="M8 11l2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <span>Never Relapse</span>
+                </div>
+                <div class="nav-links">
+                    <button class="nav-link active" data-view="dashboard">Dashboard</button>
+                    <button class="nav-link" data-view="achievements">Achievements</button>
+                    <button class="nav-link" data-view="statistics">Statistics</button>
+                    <button class="nav-link logout" id="logout-btn">Logout</button>
+                </div>
+                <button class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+
+            <!-- Dashboard View -->
+            <div id="dashboard-view" class="view active">
+                <div class="container">
+                    <div class="welcome-section">
+                        <h1>Welcome back, <span id="username-display"></span></h1>
+                        <p class="welcome-message">Every moment of progress matters</p>
+                    </div>
+
+                    <div class="timer-section">
+                        <div class="timer-card">
+                            <div class="timer-display">
+                                <div class="timer-value" id="timer-display">0d 0h 0m 0s</div>
+                                <div class="timer-label">Clean Time</div>
+                            </div>
+                            <div class="timer-controls">
+                                <button id="start-timer" class="btn btn-success">Start Journey</button>
+                                <button id="pause-timer" class="btn btn-secondary" style="display: none;">Pause</button>
+                                <button id="resume-timer" class="btn btn-success" style="display: none;">Resume</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress-section">
+                        <div class="progress-card">
+                            <h3>Next Milestone</h3>
+                            <div class="progress-info">
+                                <span id="next-milestone">1 Day</span>
+                                <span id="time-remaining">Start your journey</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-grid">
+                        <div class="quote-card">
+                            <h3>Daily Inspiration</h3>
+                            <blockquote id="daily-quote">
+                                <p>"The first step towards getting somewhere is to decide you're not going to stay where you are."</p>
+                                <cite>— J.P. Morgan</cite>
+                            </blockquote>
+                        </div>
+
+                        <div class="quick-stats">
+                            <h3>Quick Stats</h3>
+                            <div class="stat-item">
+                                <span class="stat-label">Current Streak</span>
+                                <span class="stat-value" id="current-streak-stat">0 days</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Longest Streak</span>
+                                <span class="stat-value" id="longest-streak-stat">0 days</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Achievements</span>
+                                <span class="stat-value" id="achievements-count">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panic-section">
+                        <button id="panic-button" class="btn btn-danger btn-panic">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M15 9l-6 6"/>
+                                <path d="M9 9l6 6"/>
+                            </svg>
+                            Reset Progress
+                        </button>
+                        <p class="panic-description">Had a setback? It's okay. Reset and start fresh.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements View -->
+            <div id="achievements-view" class="view">
+                <div class="container">
+                    <div class="view-header">
+                        <h1>Achievements</h1>
+                        <p>Celebrate your milestones and progress</p>
+                    </div>
+                    <div id="achievements-grid" class="achievements-grid">
+                        <!-- Achievements will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics View -->
+            <div id="statistics-view" class="view">
+                <div class="container">
+                    <div class="view-header">
+                        <h1>Statistics</h1>
+                        <p>Track your recovery journey</p>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Recovery Journey</h3>
+                            <div class="stat-large">
+                                <span class="stat-number" id="total-attempts">1</span>
+                                <span class="stat-unit">Attempts</span>
+                            </div>
+                            <p class="stat-description">Every attempt is progress</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Current Progress</h3>
+                            <div class="stat-large">
+                                <span class="stat-number" id="current-days">0</span>
+                                <span class="stat-unit">Days</span>
+                            </div>
+                            <p class="stat-description">Your current streak</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Personal Best</h3>
+                            <div class="stat-large">
+                                <span class="stat-number" id="best-streak">0</span>
+                                <span class="stat-unit">Days</span>
+                            </div>
+                            <p class="stat-description">Your longest streak</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Achievements Unlocked</h3>
+                            <div class="stat-large">
+                                <span class="stat-number" id="total-achievements">0</span>
+                                <span class="stat-unit">Rewards</span>
+                            </div>
+                            <p class="stat-description">Milestones reached</p>
+                        </div>
+                    </div>
+                    <div class="progress-history">
+                        <h3>Recent Activity</h3>
+                        <div id="activity-log" class="activity-log">
+                            <!-- Activity items will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div id="confirmation-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Confirm Reset</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to reset your progress? This will:</p>
+                    <ul>
+                        <li>Reset your timer to zero</li>
+                        <li>Remove all current achievements</li>
+                        <li>Increment your relapse count</li>
+                    </ul>
+                    <p><strong>This action cannot be undone.</strong></p>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancel-reset" class="btn btn-secondary">Cancel</button>
+                    <button id="confirm-reset" class="btn btn-danger">Reset Progress</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="success-modal" class="modal">
+            <div class="modal-content success-modal">
+                <div class="modal-header">
+                    <div class="success-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2L2 7v10c0 5.55 3.84 10 9 9 5.16 1 9-3.45 9-9V7l-10-5z"/>
+                            <path d="M8 11l2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <h3 id="success-title">Achievement Unlocked!</h3>
+                </div>
+                <div class="modal-body">
+                    <p id="success-message">Congratulations on reaching your milestone!</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="close-success" class="btn btn-primary">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="src/js/main.js"></script>
+</body>
+</html>
