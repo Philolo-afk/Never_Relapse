@@ -8,6 +8,7 @@ import userRoutes from './routes/user.js';
 import timerRoutes from './routes/timer.js';
 import achievementRoutes from './routes/achievements.js';
 import quotesRoutes from './routes/quotes.js';
+import paymentRoutes from './routes/payments.js';
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/timer', timerRoutes);
 app.use('/api/achievements', achievementRoutes);
 app.use('/api/quotes', quotesRoutes);
+app.use('/api/payments', paymentRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

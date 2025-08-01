@@ -1276,3 +1276,324 @@ input:focus {
   border-color: var(--success-500) !important;
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1) !important;
 }
+
+/* Donation Styles */
+.donation-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  margin-bottom: var(--space-12);
+}
+
+.donation-info .info-card {
+  background: white;
+  padding: var(--space-8);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--neutral-200);
+}
+
+.donation-info h3 {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--neutral-900);
+  margin-bottom: var(--space-4);
+}
+
+.donation-info p {
+  color: var(--neutral-700);
+  margin-bottom: var(--space-4);
+  line-height: 1.6;
+}
+
+.donation-benefits {
+  list-style: none;
+  padding: 0;
+}
+
+.donation-benefits li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  color: var(--neutral-700);
+}
+
+.donation-benefits li::before {
+  content: '✓';
+  width: 20px;
+  height: 20px;
+  background: var(--success-100);
+  color: var(--success-600);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: var(--font-size-sm);
+  flex-shrink: 0;
+}
+
+.donation-form-container {
+  background: white;
+  padding: var(--space-8);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--neutral-200);
+}
+
+.donation-form h3 {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--neutral-900);
+  margin-bottom: var(--space-6);
+}
+
+.amount-selection {
+  margin-bottom: var(--space-6);
+}
+
+.amount-selection label {
+  display: block;
+  font-weight: 500;
+  color: var(--neutral-700);
+  margin-bottom: var(--space-3);
+}
+
+.amount-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.amount-btn {
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--neutral-200);
+  background: white;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.amount-btn:hover {
+  border-color: var(--primary-300);
+  background: var(--primary-50);
+}
+
+.amount-btn.selected {
+  border-color: var(--primary-500);
+  background: var(--primary-100);
+  color: var(--primary-700);
+}
+
+.custom-amount {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.custom-amount input {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--neutral-200);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+}
+
+.custom-amount select {
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--neutral-200);
+  border-radius: var(--border-radius);
+  background: white;
+  font-size: var(--font-size-base);
+  cursor: pointer;
+}
+
+.donor-info {
+  margin-bottom: var(--space-6);
+}
+
+.donor-info .form-group {
+  margin-bottom: var(--space-4);
+}
+
+.donor-info textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.payment-methods h4 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--neutral-900);
+  margin-bottom: var(--space-4);
+}
+
+.payment-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.payment-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border: 2px solid var(--neutral-200);
+  background: white;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: left;
+}
+
+.payment-btn:hover {
+  border-color: var(--primary-300);
+  background: var(--primary-50);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.payment-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.mpesa-btn {
+  border-color: var(--success-300);
+  color: var(--success-700);
+}
+
+.mpesa-btn:hover {
+  border-color: var(--success-500);
+  background: var(--success-50);
+}
+
+.donation-history {
+  background: white;
+  padding: var(--space-8);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--neutral-200);
+}
+
+.donation-history h3 {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--neutral-900);
+  margin-bottom: var(--space-6);
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4);
+  background: var(--neutral-50);
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--success-500);
+}
+
+.history-item.failed {
+  border-left-color: var(--error-500);
+}
+
+.history-item.pending {
+  border-left-color: var(--warning-500);
+}
+
+.history-details {
+  flex: 1;
+}
+
+.history-amount {
+  font-weight: 600;
+  color: var(--neutral-900);
+}
+
+.history-date {
+  font-size: var(--font-size-sm);
+  color: var(--neutral-600);
+}
+
+.history-method {
+  font-size: var(--font-size-sm);
+  color: var(--neutral-500);
+  text-transform: capitalize;
+}
+
+.history-status {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.history-status.completed {
+  background: var(--success-100);
+  color: var(--success-700);
+}
+
+.history-status.failed {
+  background: var(--error-100);
+  color: var(--error-700);
+}
+
+.history-status.pending {
+  background: var(--warning-100);
+  color: var(--warning-700);
+}
+
+.payment-spinner {
+  text-align: center;
+  padding: var(--space-8);
+}
+
+.payment-spinner .spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--neutral-200);
+  border-top: 4px solid var(--primary-600);
+  border-radius: 50%;
+  margin: 0 auto var(--space-4);
+  animation: spin 1s linear infinite;
+}
+
+.payment-spinner p {
+  color: var(--neutral-600);
+  font-size: var(--font-size-lg);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .donation-content {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  
+  .amount-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .custom-amount {
+    flex-direction: column;
+  }
+  
+  .history-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+}

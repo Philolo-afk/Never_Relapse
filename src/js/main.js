@@ -5,6 +5,7 @@ import { AchievementManager } from './achievements.js';
 import { QuoteManager } from './quotes.js';
 import { UIManager } from './ui.js';
 import { StorageManager } from './storage.js';
+import { PaymentManager } from './payments.js';
 
 class NeverRelapseApp {
     constructor() {
@@ -18,6 +19,7 @@ class NeverRelapseApp {
         this.achievements = new AchievementManager(this.storage);
         this.quotes = new QuoteManager();
         this.ui = new UIManager();
+        this.payments = new PaymentManager(this.api, this.ui);
 
         this.init();
     }
@@ -468,6 +470,9 @@ class NeverRelapseApp {
             case 'statistics':
                 this.updateStatsUI();
                 this.updateActivityLog();
+                break;
+            case 'donate':
+                this.payments.loadDonationHistory();
                 break;
         }
     }

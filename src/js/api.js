@@ -207,6 +207,50 @@ class APIClient {
         return this.request('/quotes/categories');
     }
 
+    // Payment endpoints
+    async createStripeIntent(donationData) {
+        return this.request('/payments/stripe/create-intent', {
+            method: 'POST',
+            body: JSON.stringify(donationData)
+        });
+    }
+
+    async confirmStripePayment(paymentIntentId) {
+        return this.request('/payments/stripe/confirm', {
+            method: 'POST',
+            body: JSON.stringify({ paymentIntentId })
+        });
+    }
+
+    async createPayPalPayment(donationData) {
+        return this.request('/payments/paypal/create', {
+            method: 'POST',
+            body: JSON.stringify(donationData)
+        });
+    }
+
+    async executePayPalPayment(paymentId, payerId) {
+        return this.request('/payments/paypal/execute', {
+            method: 'POST',
+            body: JSON.stringify({ paymentId, payerId })
+        });
+    }
+
+    async createMpesaPayment(donationData) {
+        return this.request('/payments/mpesa/create', {
+            method: 'POST',
+            body: JSON.stringify(donationData)
+        });
+    }
+
+    async getDonationHistory(page = 1, limit = 10) {
+        return this.request(`/payments/history?page=${page}&limit=${limit}`);
+    }
+
+    async getDonationStats() {
+        return this.request('/payments/stats');
+    }
+
     // Utility methods
     logout() {
         this.setToken(null);

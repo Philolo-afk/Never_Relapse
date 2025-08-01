@@ -131,6 +131,7 @@
                     <button class="nav-link active" data-view="dashboard">Dashboard</button>
                     <button class="nav-link" data-view="achievements">Achievements</button>
                     <button class="nav-link" data-view="statistics">Statistics</button>
+                    <button class="nav-link" data-view="donate">Donate</button>
                     <button class="nav-link logout" id="logout-btn">Logout</button>
                 </div>
                 <button class="mobile-menu-toggle">
@@ -273,6 +274,141 @@
                         <h3>Recent Activity</h3>
                         <div id="activity-log" class="activity-log">
                             <!-- Activity items will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Donate View -->
+            <div id="donate-view" class="view">
+                <div class="container">
+                    <div class="view-header">
+                        <h1>Support Never Relapse</h1>
+                        <p>Help us continue supporting recovery journeys worldwide</p>
+                    </div>
+                    
+                    <div class="donation-content">
+                        <div class="donation-info">
+                            <div class="info-card">
+                                <h3>Why Donate?</h3>
+                                <p>Your donations help us maintain and improve Never Relapse, keeping it free and accessible for everyone on their recovery journey. Every contribution makes a difference.</p>
+                                <ul class="donation-benefits">
+                                    <li>Keep the platform free for all users</li>
+                                    <li>Fund new features and improvements</li>
+                                    <li>Support server costs and maintenance</li>
+                                    <li>Help expand to more recovery areas</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="donation-form-container">
+                            <div class="donation-form">
+                                <h3>Make a Donation</h3>
+                                
+                                <div class="amount-selection">
+                                    <label>Donation Amount</label>
+                                    <div class="amount-buttons">
+                                        <button class="amount-btn" data-amount="5">$5</button>
+                                        <button class="amount-btn" data-amount="10">$10</button>
+                                        <button class="amount-btn" data-amount="25">$25</button>
+                                        <button class="amount-btn" data-amount="50">$50</button>
+                                    </div>
+                                    <div class="custom-amount">
+                                        <input type="number" id="custom-amount" placeholder="Custom amount" min="1" step="0.01">
+                                        <select id="currency-select">
+                                            <option value="USD">USD</option>
+                                            <option value="EUR">EUR</option>
+                                            <option value="GBP">GBP</option>
+                                            <option value="KES">KES</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="donor-info">
+                                    <div class="form-group">
+                                        <label for="donor-name">Name (Optional)</label>
+                                        <input type="text" id="donor-name" placeholder="Your name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="donation-message">Message (Optional)</label>
+                                        <textarea id="donation-message" placeholder="Leave a message of support" rows="3"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" id="anonymous-donation">
+                                            <span>Make this donation anonymous</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="payment-methods">
+                                    <h4>Choose Payment Method</h4>
+                                    <div class="payment-buttons">
+                                        <button class="payment-btn" id="stripe-btn">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305z" fill="currentColor"/>
+                                            </svg>
+                                            Credit Card (Stripe)
+                                        </button>
+                                        <button class="payment-btn" id="paypal-btn">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.028-.026.056-.052.08-.498 2.542-2.101 4.081-4.847 4.081H8.522l-.788 4.953-.550 3.467a.264.264 0 0 0 .26.307h4.472c.45 0 .833-.329.903-.774l.038-.207.732-4.638.047-.256c.07-.445.453-.774.903-.774h.565c3.696 0 6.587-1.502 7.431-5.84.354-1.814.174-3.331-.777-4.471-.127-.152-.275-.295-.442-.422z" fill="currentColor"/>
+                                            </svg>
+                                            PayPal
+                                        </button>
+                                        <button class="payment-btn mpesa-btn" id="mpesa-btn">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                                <path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2"/>
+                                            </svg>
+                                            M-Pesa
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- M-Pesa Phone Input Modal -->
+                    <div id="mpesa-modal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>M-Pesa Payment</h3>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="mpesa-phone">Phone Number</label>
+                                    <input type="tel" id="mpesa-phone" placeholder="254XXXXXXXXX" pattern="254[0-9]{9}">
+                                    <small>Enter your M-Pesa registered phone number</small>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="cancel-mpesa" class="btn btn-secondary">Cancel</button>
+                                <button id="confirm-mpesa" class="btn btn-success">Send Payment Request</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Processing Modal -->
+                    <div id="payment-processing-modal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>Processing Payment</h3>
+                            </div>
+                            <div class="modal-body">
+                                <div class="payment-spinner">
+                                    <div class="spinner"></div>
+                                    <p id="processing-message">Processing your donation...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Donation History -->
+                    <div class="donation-history">
+                        <h3>Your Donation History</h3>
+                        <div id="donation-history-list" class="history-list">
+                            <!-- Donation history will be populated by JavaScript -->
                         </div>
                     </div>
                 </div>
