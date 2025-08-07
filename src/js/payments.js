@@ -196,7 +196,111 @@ export class PaymentManager {
             return;
         }
 
+        // Show custom M-Pesa payment prompt
+        this.showMpesaPaymentPrompt();
+    }
+
+    showMpesaPaymentPrompt() {
+        const modal = document.getElementById('mpesa-modal');
+        const modalContent = modal.querySelector('.modal-content');
+        
+        // Update modal content with payment instructions
+        modalContent.innerHTML = `
+            <div class="modal-header">
+                <h3>M-Pesa Payment Instructions</h3>
+            </div>
+            <div class="modal-body">
+                <div class="payment-instructions">
+                    <div class="payment-amount">
+                        <h4>Amount to Pay: KSh ${this.selectedAmount.toFixed(2)}</h4>
+                    </div>
+                    
+                    <div class="payment-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Send Money To:</span>
+                            <span class="detail-value">0703141296</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Recipient Name:</span>
+                            <span class="detail-value">Philip Ondieki</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Amount:</span>
+                            <span class="detail-value">KSh ${this.selectedAmount.toFixed(2)}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-steps">
+                        <h5>How to Pay:</h5>
+                        <ol>
+                            <li>Go to M-Pesa menu on your phone</li>
+                            <li>Select "Send Money"</li>
+                            <li>Enter phone number: <strong>0703141296</strong></li>
+                            <li>Enter amount: <strong>KSh ${this.selectedAmount.toFixed(2)}</strong></li>
+                            <li>Enter your M-Pesa PIN</li>
+                            <li>Confirm the transaction</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="payment-note">
+                        <p><strong>Note:</strong> After completing the payment, you will receive an M-Pesa confirmation message. Your donation will be recorded automatically.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-mpesa" class="btn btn-secondary">Cancel</button>
+                <button id="confirm-mpesa-payment" class="btn btn-success">I've Sent the Payment</button>
+            </div>
+        `;
+        
+        // Re-attach event listeners
+        document.getElementById('cancel-mpesa').addEventListener('click', () => {
+            this.ui.hideModal('mpesa-modal');
+        });
+        
+        document.getElementById('confirm-mpesa-payment').addEventListener('click', () => {
+            this.confirmMpesaPayment();
+        });
+        
         this.ui.showModal('mpesa-modal');
+    }
+
+    async confirmMpesaPayment() {
+        try {
+            this.ui.hideModal('mpesa-modal');
+            this.ui.showModal('payment-processing-modal');
+            document.getElementById('processing-message').textContent = 'Recording your donation...';
+
+            const donationData = {
+                ...this.getDonationData(),
+                phoneNumber: '0703141296', // Philip's number
+                paymentMethod: 'mpesa_manual'
+            };
+
+            // Record the donation as completed (manual verification)
+            const response = await this.api.request('/payments/mpesa/manual', {
+                method: 'POST',
+                body: JSON.stringify(donationData)
+            });
+
+            if (!response.success) {
+                throw new Error(response.message);
+            }
+
+            this.ui.hideModal('payment-processing-modal');
+            this.ui.showNotification('Thank you for your donation! Your support means a lot to the Never Relapse community.', 'success', 5000);
+            
+            // Reload donation history
+            await this.loadDonationHistory();
+            
+            // Reset form
+            this.resetForm();
+
+        } catch (error) {
+            console.error('M-Pesa manual payment error:', error);
+            this.ui.hideModal('payment-processing-modal');
+            this.ui.showNotification('Failed to record donation: ' + error.message, 'error');
+        }
     }
 
     async processMpesaPayment() {

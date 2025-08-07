@@ -1576,6 +1576,95 @@ input:focus {
   font-size: var(--font-size-lg);
 }
 
+/* M-Pesa Payment Instructions */
+.payment-instructions {
+  text-align: left;
+}
+
+.payment-amount {
+  background: var(--success-50);
+  border: 2px solid var(--success-200);
+  border-radius: var(--border-radius);
+  padding: var(--space-4);
+  margin-bottom: var(--space-6);
+  text-align: center;
+}
+
+.payment-amount h4 {
+  color: var(--success-700);
+  font-size: var(--font-size-xl);
+  margin: 0;
+}
+
+.payment-details {
+  background: var(--neutral-50);
+  border-radius: var(--border-radius);
+  padding: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--neutral-200);
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  color: var(--neutral-600);
+  font-weight: 500;
+}
+
+.detail-value {
+  color: var(--neutral-900);
+  font-weight: 600;
+  font-family: monospace;
+}
+
+.payment-steps {
+  margin-bottom: var(--space-6);
+}
+
+.payment-steps h5 {
+  color: var(--neutral-800);
+  margin-bottom: var(--space-3);
+  font-size: var(--font-size-lg);
+}
+
+.payment-steps ol {
+  padding-left: var(--space-5);
+  color: var(--neutral-700);
+}
+
+.payment-steps li {
+  margin-bottom: var(--space-2);
+  line-height: 1.5;
+}
+
+.payment-steps strong {
+  color: var(--success-700);
+  font-family: monospace;
+}
+
+.payment-note {
+  background: var(--primary-50);
+  border-left: 4px solid var(--primary-500);
+  padding: var(--space-4);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.payment-note p {
+  margin: 0;
+  color: var(--primary-800);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .donation-content {
