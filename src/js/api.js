@@ -243,6 +243,13 @@ class APIClient {
         });
     }
 
+    async recordManualMpesaPayment(donationData) {
+        return this.request('/payments/mpesa/manual', {
+            method: 'POST',
+            body: JSON.stringify(donationData)
+        });
+    }
+
     async getDonationHistory(page = 1, limit = 10) {
         return this.request(`/payments/history?page=${page}&limit=${limit}`);
     }

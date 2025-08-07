@@ -372,6 +372,64 @@ router.post('/mpesa/create', authenticateToken, [
   }
 });
 
+// Manual M-Pesa payment recording
+router.post('/mpesa/manual', authenticateToken, [
+  body('amount').isNumeric().isFloat({ min: 1 }).withMessage('Amount must be at least 1 KES'),
+  body('donorName').optional().isLength({ max: 100 }).trim(),
+  body('message').optional().isLength({ max: 500 }).trim(),
+  body('isAnonymous').optional().isBoolean()
+], async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: 'Validation failed',
+        errors: errors.array()
+      });
+    }
+
+    const { amount, donorName, message, isAnonymous } = req.body;
+
+    // Create donation record for manual M-Pesa payment
+    const donation = new Donation({
+      userId: req.user.userId,
+      amount,
+      currency: 'KES',
+      paymentMethod: 'mpesa',
+      paymentId: `manual_${Date.now()}_${req.user.userId}`,
+      donorName,
+      message,
+      isAnonymous,
+      status: 'completed', // Mark as completed for manual payments
+      metadata: {
+        phoneNumber: '0703141296',
+        recipientName: 'Philip Ondieki',
+        paymentType: 'manual'
+      }
+    });
+
+    await donation.save();
+
+    res.json({
+      success: true,
+      message: 'Donation recorded successfully',
+      data: {
+        donationId: donation._id,
+        amount: donation.amount,
+        currency: donation.currency
+      }
+    });
+
+  } catch (error) {
+    console.error('Manual M-Pesa payment error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to record donation'
+    });
+  }
+});
+
 // M-Pesa callback
 router.post('/mpesa/callback', async (req, res) => {
   try {
