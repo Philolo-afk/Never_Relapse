@@ -250,6 +250,10 @@ class APIClient {
         });
     }
 
+    async getMpesaPaymentStatus(checkoutRequestId) {
+        return this.request(`/payments/mpesa/status/${checkoutRequestId}`);
+    }
+
     async getDonationHistory(page = 1, limit = 10) {
         return this.request(`/payments/history?page=${page}&limit=${limit}`);
     }
