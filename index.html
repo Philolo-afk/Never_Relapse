@@ -373,18 +373,34 @@
                     <div id="mpesa-modal" class="modal">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h3>M-Pesa Payment</h3>
+                                <h3>Choose M-Pesa Payment Method</h3>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="mpesa-phone">Phone Number</label>
-                                    <input type="tel" id="mpesa-phone" placeholder="254XXXXXXXXX" pattern="254[0-9]{9}">
-                                    <small>Enter your M-Pesa registered phone number</small>
+                                <div class="mpesa-options">
+                                    <div class="mpesa-option">
+                                        <h4>Option 1: Automatic Payment (STK Push)</h4>
+                                        <p>Enter your phone number to receive a payment prompt directly on your phone</p>
+                                        <div class="form-group">
+                                            <label for="mpesa-phone">Your M-Pesa Phone Number</label>
+                                            <input type="tel" id="mpesa-phone" placeholder="254XXXXXXXXX" pattern="254[0-9]{9}">
+                                            <small>Enter your M-Pesa registered phone number</small>
+                                        </div>
+                                        <button id="stkpush-mpesa" class="btn btn-success">Send Payment Request</button>
+                                    </div>
+                                    
+                                    <div class="mpesa-divider">
+                                        <span>OR</span>
+                                    </div>
+                                    
+                                    <div class="mpesa-option">
+                                        <h4>Option 2: Manual Payment</h4>
+                                        <p>Get payment instructions to send money manually</p>
+                                        <button id="manual-mpesa" class="btn btn-secondary">Get Payment Instructions</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button id="cancel-mpesa" class="btn btn-secondary">Cancel</button>
-                                <button id="confirm-mpesa" class="btn btn-success">Send Payment Request</button>
                             </div>
                         </div>
                     </div>

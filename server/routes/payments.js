@@ -372,6 +372,83 @@ router.post('/mpesa/create', authenticateToken, [
   }
 });
 
+// Get M-Pesa payment status
+router.get('/mpesa/status/:checkoutRequestId', authenticateToken, async (req, res) => {
+  try {
+    const { checkoutRequestId } = req.params;
+
+    // Get M-Pesa access token
+    const auth = Buffer.from(`${process.env.MPESA_CONSUMER_KEY}:${process.env.MPESA_CONSUMER_SECRET}`).toString('base64');
+    
+    const tokenResponse = await axios.get('https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials', {
+      headers: {
+        Authorization: `Basic ${auth}`
+      }
+    });
+
+    const accessToken = tokenResponse.data.access_token;
+
+    // Generate timestamp and password
+    const timestamp = new Date().toISOString().replace(/[^0-9]/g, '').slice(0, -3);
+    const shortcode = process.env.MPESA_SHORTCODE;
+    const passkey = process.env.MPESA_PASSKEY;
+    const password = Buffer.from(shortcode + passkey + timestamp).toString('base64');
+
+    // Query payment status
+    const statusResponse = await axios.post('https://sandbox.safaricom.co.ke/mpesa/stkpushquery/v1/query', {
+      BusinessShortCode: shortcode,
+      Password: password,
+      Timestamp: timestamp,
+      CheckoutRequestID: checkoutRequestId
+    }, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    let status = 'pending';
+    if (statusResponse.data.ResponseCode === '0') {
+      if (statusResponse.data.ResultCode === '0') {
+        status = 'completed';
+        // Update donation status
+        await Donation.findOneAndUpdate(
+          { paymentId: checkoutRequestId },
+          { status: 'completed' }
+        );
+      } else if (statusResponse.data.ResultCode === '1032') {
+        status = 'cancelled';
+        await Donation.findOneAndUpdate(
+          { paymentId: checkoutRequestId },
+          { status: 'failed' }
+        );
+      } else {
+        status = 'failed';
+        await Donation.findOneAndUpdate(
+          { paymentId: checkoutRequestId },
+          { status: 'failed' }
+        );
+      }
+    }
+
+    res.json({
+      success: true,
+      data: {
+        status,
+        resultCode: statusResponse.data.ResultCode,
+        resultDesc: statusResponse.data.ResultDesc
+      }
+    });
+
+  } catch (error) {
+    console.error('M-Pesa status query error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to check payment status'
+    });
+  }
+});
+
 // Manual M-Pesa payment recording
 router.post('/mpesa/manual', authenticateToken, [
   body('amount').isNumeric().isFloat({ min: 1 }).withMessage('Amount must be at least 1 KES'),

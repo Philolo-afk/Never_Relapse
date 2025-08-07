@@ -58,8 +58,12 @@ export class PaymentManager {
         });
 
         // M-Pesa modal
-        document.getElementById('confirm-mpesa')?.addEventListener('click', () => {
+        document.getElementById('stkpush-mpesa')?.addEventListener('click', () => {
             this.processMpesaPayment();
+        });
+
+        document.getElementById('manual-mpesa')?.addEventListener('click', () => {
+            this.showMpesaPaymentPrompt();
         });
 
         document.getElementById('cancel-mpesa')?.addEventListener('click', () => {
@@ -196,8 +200,7 @@ export class PaymentManager {
             return;
         }
 
-        // Show custom M-Pesa payment prompt
-        this.showMpesaPaymentPrompt();
+        this.ui.showModal('mpesa-modal');
     }
 
     showMpesaPaymentPrompt() {
@@ -261,8 +264,6 @@ export class PaymentManager {
         document.getElementById('confirm-mpesa-payment').addEventListener('click', () => {
             this.confirmMpesaPayment();
         });
-        
-        this.ui.showModal('mpesa-modal');
     }
 
     async confirmMpesaPayment() {
