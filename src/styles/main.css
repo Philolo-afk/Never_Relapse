@@ -1474,6 +1474,16 @@ input:focus {
   background: var(--success-50);
 }
 
+.bitcoin-btn {
+  border-color: #f7931a;
+  color: #f7931a;
+}
+
+.bitcoin-btn:hover {
+  border-color: #e8851a;
+  background: #fff8f0;
+}
+
 .donation-history {
   background: white;
   padding: var(--space-8);
@@ -1713,6 +1723,128 @@ input:focus {
   color: var(--neutral-500);
   font-weight: 500;
   font-size: var(--font-size-sm);
+}
+
+/* Bitcoin Payment Styles */
+.bitcoin-payment-info {
+  text-align: left;
+}
+
+.bitcoin-address-section {
+  background: var(--neutral-50);
+  border-radius: var(--border-radius);
+  padding: var(--space-4);
+  margin: var(--space-6) 0;
+}
+
+.address-label h5 {
+  color: #f7931a;
+  margin-bottom: var(--space-3);
+  font-size: var(--font-size-lg);
+}
+
+.bitcoin-address {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: white;
+  border: 2px solid #f7931a;
+  border-radius: var(--border-radius);
+  padding: var(--space-3);
+}
+
+.address-text {
+  flex: 1;
+  font-family: monospace;
+  font-size: var(--font-size-sm);
+  color: var(--neutral-900);
+  word-break: break-all;
+  font-weight: 600;
+}
+
+.copy-btn {
+  background: #f7931a;
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  padding: var(--space-2);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-btn:hover {
+  background: #e8851a;
+  transform: translateY(-1px);
+}
+
+.bitcoin-qr-section {
+  text-align: center;
+  margin: var(--space-6) 0;
+}
+
+.qr-placeholder {
+  background: var(--neutral-100);
+  border: 2px dashed var(--neutral-300);
+  border-radius: var(--border-radius);
+  padding: var(--space-8);
+}
+
+.qr-code {
+  width: 200px;
+  height: 200px;
+  background: white;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--border-radius);
+  margin: 0 auto var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  color: var(--neutral-500);
+}
+
+.qr-placeholder p {
+  margin: 0;
+  color: var(--neutral-600);
+  font-size: var(--font-size-sm);
+}
+
+.bitcoin-instructions {
+  margin: var(--space-6) 0;
+}
+
+.bitcoin-instructions h5 {
+  color: var(--neutral-800);
+  margin-bottom: var(--space-3);
+  font-size: var(--font-size-lg);
+}
+
+.bitcoin-instructions ol {
+  padding-left: var(--space-5);
+  color: var(--neutral-700);
+}
+
+.bitcoin-instructions li {
+  margin-bottom: var(--space-2);
+  line-height: 1.5;
+}
+
+.bitcoin-note {
+  background: #fff8f0;
+  border-left: 4px solid #f7931a;
+  padding: var(--space-4);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  margin-top: var(--space-6);
+}
+
+.bitcoin-note p {
+  margin: 0;
+  color: #b8730d;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
 }
 
 /* Mobile Responsive */

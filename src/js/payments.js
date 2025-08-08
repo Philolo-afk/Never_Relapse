@@ -376,6 +376,112 @@ export class PaymentManager {
         setTimeout(poll, 5000); // Start polling after 5 seconds
     }
 
+    showBitcoinModal() {
+        if (!this.selectedAmount) {
+            this.ui.showNotification('Please select an amount for Bitcoin payment', 'warning');
+            return;
+        }
+
+        // Update amount display
+        const amountDisplay = document.getElementById('bitcoin-amount-display');
+        if (amountDisplay) {
+            amountDisplay.textContent = `Amount: ${this.formatCurrency(this.selectedAmount, this.selectedCurrency)}`;
+        }
+
+        // Generate QR code for the address
+        this.generateBitcoinQR();
+
+        this.ui.showModal('bitcoin-modal');
+    }
+
+    generateBitcoinQR() {
+        const qrElement = document.getElementById('bitcoin-qr');
+        if (qrElement) {
+            // For now, show placeholder text. In production, you'd use a QR code library
+            qrElement.innerHTML = `
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#f7931a" stroke-width="1">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <rect x="7" y="7" width="3" height="3"/>
+                        <rect x="14" y="7" width="3" height="3"/>
+                        <rect x="7" y="14" width="3" height="3"/>
+                        <rect x="14" y="14" width="3" height="3"/>
+                    </svg>
+                    <p style="margin-top: 8px; font-size: 12px; color: #666;">QR Code</p>
+                </div>
+            `;
+        }
+    }
+
+    copyBitcoinAddress() {
+        const address = 'TKQKuJxnSWNy7cP4zqYiGeKezJdP751GZ3';
+        
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(address).then(() => {
+                this.ui.showNotification('Bitcoin address copied to clipboard!', 'success');
+            }).catch(() => {
+                this.fallbackCopyAddress(address);
+            });
+        } else {
+            this.fallbackCopyAddress(address);
+        }
+    }
+
+    fallbackCopyAddress(address) {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = address;
+        document.body.appendChild(textArea);
+        textArea.select();
+        
+        try {
+            document.execCommand('copy');
+            this.ui.showNotification('Bitcoin address copied to clipboard!', 'success');
+        } catch (err) {
+            this.ui.showNotification('Failed to copy address. Please copy manually.', 'error');
+        }
+        
+        document.body.removeChild(textArea);
+    }
+
+    async confirmBitcoinPayment() {
+        try {
+            this.ui.hideModal('bitcoin-modal');
+            this.ui.showModal('payment-processing-modal');
+            document.getElementById('processing-message').textContent = 'Recording your Bitcoin donation...';
+
+            const donationData = {
+                ...this.getDonationData(),
+                bitcoinAddress: 'TKQKuJxnSWNy7cP4zqYiGeKezJdP751GZ3',
+                paymentMethod: 'bitcoin_trc20'
+            };
+
+            // Record the donation as completed (manual verification)
+            const response = await this.api.request('/payments/bitcoin/manual', {
+                method: 'POST',
+                body: JSON.stringify(donationData)
+            });
+
+            if (!response.success) {
+                throw new Error(response.message);
+            }
+
+            this.ui.hideModal('payment-processing-modal');
+            this.ui.showNotification('Thank you for your Bitcoin donation! Your support means a lot to the Never Relapse community.', 'success', 5000);
+            
+            // Reload donation history
+            await this.loadDonationHistory();
+            
+            // Reset form
+            this.resetForm();
+
+        } catch (error) {
+            console.error('Bitcoin payment error:', error);
+            this.ui.hideModal('payment-processing-modal');
+            this.ui.showNotification('Failed to record donation: ' + error.message, 'error');
+        }
+    }
+
     async loadDonationHistory() {
         try {
             const response = await this.api.request('/payments/history');
@@ -408,7 +514,7 @@ export class PaymentManager {
                         ${new Date(donation.createdAt).toLocaleDateString()}
                     </div>
                     <div class="history-method">
-                        via ${donation.paymentMethod}
+                        via ${historyMethod}
                     </div>
                     ${donation.message ? `<div class="history-message">"${donation.message}"</div>` : ''}
                 </div>

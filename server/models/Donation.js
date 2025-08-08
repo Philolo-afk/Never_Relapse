@@ -20,7 +20,7 @@ const donationSchema = new mongoose.Schema({
   paymentMethod: {
     type: String,
     required: true,
-    enum: ['stripe', 'paypal', 'mpesa']
+    enum: ['stripe', 'paypal', 'mpesa', 'bitcoin_trc20']
   },
   paymentId: {
     type: String,

@@ -543,6 +543,65 @@ router.post('/mpesa/callback', async (req, res) => {
   }
 });
 
+// Manual Bitcoin payment recording
+router.post('/bitcoin/manual', authenticateToken, [
+  body('amount').isNumeric().isFloat({ min: 1 }).withMessage('Amount must be at least $1'),
+  body('currency').isIn(['USD', 'EUR', 'GBP']).withMessage('Invalid currency'),
+  body('donorName').optional().isLength({ max: 100 }).trim(),
+  body('message').optional().isLength({ max: 500 }).trim(),
+  body('isAnonymous').optional().isBoolean()
+], async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: 'Validation failed',
+        errors: errors.array()
+      });
+    }
+
+    const { amount, currency, donorName, message, isAnonymous } = req.body;
+
+    // Create donation record for manual Bitcoin payment
+    const donation = new Donation({
+      userId: req.user.userId,
+      amount,
+      currency,
+      paymentMethod: 'bitcoin_trc20',
+      paymentId: `bitcoin_${Date.now()}_${req.user.userId}`,
+      donorName,
+      message,
+      isAnonymous,
+      status: 'completed', // Mark as completed for manual payments
+      metadata: {
+        bitcoinAddress: 'TKQKuJxnSWNy7cP4zqYiGeKezJdP751GZ3',
+        network: 'TRC20',
+        paymentType: 'manual'
+      }
+    });
+
+    await donation.save();
+
+    res.json({
+      success: true,
+      message: 'Bitcoin donation recorded successfully',
+      data: {
+        donationId: donation._id,
+        amount: donation.amount,
+        currency: donation.currency
+      }
+    });
+
+  } catch (error) {
+    console.error('Manual Bitcoin payment error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to record Bitcoin donation'
+    });
+  }
+});
+
 // Get donation history
 router.get('/history', authenticateToken, async (req, res) => {
   try {

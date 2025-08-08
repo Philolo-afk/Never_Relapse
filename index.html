@@ -211,6 +211,12 @@
                             </svg>
                             Reset Progress
                         </button>
+                        <button class="payment-btn bitcoin-btn" id="bitcoin-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 6.41c.78.78.78 2.05 0 2.83L12 12.66l1.41 1.42c.78.78.78 2.05 0 2.83-.78.78-2.05.78-2.83 0L9.17 15.5c-.78-.78-.78-2.05 0-2.83L10.59 11.25 9.17 9.83c-.78-.78-.78-2.05 0-2.83.78-.78 2.05-.78 2.83 0L13.41 8.41z" fill="currentColor"/>
+                            </svg>
+                            Bitcoin (TRC20)
+                        </button>
                         <p class="panic-description">Had a setback? It's okay. Reset and start fresh.</p>
                     </div>
                 </div>
@@ -401,6 +407,63 @@
                             </div>
                             <div class="modal-footer">
                                 <button id="cancel-mpesa" class="btn btn-secondary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bitcoin Payment Modal -->
+                    <div id="bitcoin-modal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>Bitcoin (TRC20) Payment</h3>
+                            </div>
+                            <div class="modal-body">
+                                <div class="bitcoin-payment-info">
+                                    <div class="payment-amount">
+                                        <h4 id="bitcoin-amount-display">Amount: $0.00</h4>
+                                    </div>
+                                    
+                                    <div class="bitcoin-address-section">
+                                        <div class="address-label">
+                                            <h5>Send Bitcoin (TRC20) to this address:</h5>
+                                        </div>
+                                        <div class="bitcoin-address">
+                                            <div class="address-text" id="bitcoin-address">TKQKuJxnSWNy7cP4zqYiGeKezJdP751GZ3</div>
+                                            <button class="copy-btn" id="copy-address-btn" title="Copy Address">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bitcoin-qr-section">
+                                        <div class="qr-placeholder">
+                                            <div class="qr-code" id="bitcoin-qr"></div>
+                                            <p>Scan QR code with your wallet</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bitcoin-instructions">
+                                        <h5>Payment Instructions:</h5>
+                                        <ol>
+                                            <li>Copy the Bitcoin address above or scan the QR code</li>
+                                            <li>Open your Bitcoin wallet (make sure it supports TRC20)</li>
+                                            <li>Send the exact amount to the address</li>
+                                            <li>Wait for transaction confirmation</li>
+                                            <li>Click "I've Sent the Payment" below</li>
+                                        </ol>
+                                    </div>
+                                    
+                                    <div class="bitcoin-note">
+                                        <p><strong>Important:</strong> Please ensure you're sending Bitcoin on the Tron (TRC20) network. Sending on other networks may result in loss of funds.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="cancel-bitcoin" class="btn btn-secondary">Cancel</button>
+                                <button id="confirm-bitcoin-payment" class="btn btn-success">I've Sent the Payment</button>
                             </div>
                         </div>
                     </div>
