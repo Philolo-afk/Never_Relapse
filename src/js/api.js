@@ -250,6 +250,13 @@ class APIClient {
         });
     }
 
+    async recordBitcoinPayment(donationData) {
+        return this.request('/payments/bitcoin/manual', {
+            method: 'POST',
+            body: JSON.stringify(donationData)
+        });
+    }
+
     async getMpesaPaymentStatus(checkoutRequestId) {
         return this.request(`/payments/mpesa/status/${checkoutRequestId}`);
     }
