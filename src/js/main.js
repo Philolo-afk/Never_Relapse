@@ -6,6 +6,7 @@ import { QuoteManager } from './quotes.js';
 import { UIManager } from './ui.js';
 import { StorageManager } from './storage.js';
 import { PaymentManager } from './payments.js';
+import { APIClient } from './api.js';
 
 class NeverRelapseApp {
     constructor() {
@@ -14,6 +15,7 @@ class NeverRelapseApp {
         
         // Initialize managers
         this.storage = new StorageManager();
+        this.api = new APIClient();
         this.auth = new AuthManager(this.storage);
         this.timer = new TimerManager(this.storage);
         this.achievements = new AchievementManager(this.storage);
@@ -284,9 +286,6 @@ class NeverRelapseApp {
         try {
             // Load timer state
             this.timer.loadState(this.currentUser.username);
-            
-            // Load achievements
-            this.achievements.loadState(this.currentUser.username);
             
             // Check for achievements that should be unlocked
             this.checkForNewAchievements();
