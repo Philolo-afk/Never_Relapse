@@ -1,5 +1,5 @@
 // API Client for Never Relapse Backend
-class APIClient {
+export class APIClient {
     constructor() {
         this.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
         this.token = localStorage.getItem('nr_token');
@@ -278,5 +278,3 @@ class APIClient {
         return !!this.token;
     }
 }
-
-export default new APIClient();
