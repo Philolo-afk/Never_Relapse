@@ -338,9 +338,14 @@ export class PaymentManager {
             this.pollMpesaStatus(response.data.checkoutRequestId);
 
         } catch (error) {
-            console.error('M-Pesa payment error:', error);
             this.ui.hideModal('payment-processing-modal');
-            this.ui.showNotification('M-Pesa payment failed: ' + error.message, 'error');
+            
+            if (error.message.includes('Backend server is not available')) {
+                this.ui.showNotification('Cannot process M-Pesa payment: Backend server is not running. Please start the server with "npm run dev:full"', 'error');
+            } else {
+                console.error('M-Pesa payment error:', error);
+                this.ui.showNotification('M-Pesa payment failed: ' + error.message, 'error');
+            }
         }
     }
 
@@ -491,7 +496,12 @@ export class PaymentManager {
             }
 
         } catch (error) {
-            console.error('Load donation history error:', error);
+            if (error.message.includes('Backend server is not available')) {
+                console.warn('Cannot load donation history: Backend server is not running');
+                this.renderDonationHistory([]); // Show empty history
+            } else {
+                console.error('Load donation history error:', error);
+            }
         }
     }
 

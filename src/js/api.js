@@ -43,6 +43,11 @@ export class APIClient {
 
             return data;
         } catch (error) {
+            // Handle network errors (server not running)
+            if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
+                console.warn('Backend server is not running. Please start the server with "npm run dev:full"');
+                throw new Error('Backend server is not available. Please start the server.');
+            }
             console.error('API request failed:', error);
             throw error;
         }
